@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    image: reqgenius:latest
+    command: python ReqGenius/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=ReqGenius.ReqGenius.settings
+      - DATABASE_URL=sqlite:///db.sqlite3  # Use SQLite database URL here
+
+volumes:
+  mongo-data:  # No need to define volumes for MongoDB since you're using SQLite

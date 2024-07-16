@@ -1,16 +1,43 @@
 pipeline {
-    agent none
+    agent any
+
+    environment {
+        MONGO_URI = credentials('MONGO_URI') // Assumes you have stored MONGO_URI as a Jenkins credential
+    }
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your repository
+                git 'https://your-repo-url.git'
+            }
+        }
+
+        stage('Setup') {
             agent {
                 docker {
-                    image 'python:3.12-alpine'
+                    image 'python:3.12-alpine' // Use Python 3.12 and alpine as base image
                 }
             }
             steps {
-                sh 'python -m compileall .'
+                sh '''
+                # Install dependencies
+                python -m venv venv
+                . venv/bin/activate
+                pip install -r requirements.txt
+                '''
             }
         }
+
+        stage('Build') {
+            steps {
+                sh '''
+                # Compile python files to check for syntax errors
+                python -m py_compile manage.py
+                '''
+            }
+        }
+
         stage('Test') {
             agent {
                 docker {
@@ -19,17 +46,34 @@ pipeline {
             }
             steps {
                 sh '''
-                    python -m venv .venv
-                    . .venv/bin/activate
-                    pip install -r requirements.txt
-                    pytest --verbose --junit-xml test-reports/results.xml
+                . venv/bin/activate
+                # Run your tests
+                pytest --junit-xml test-reports/results.xml
                 '''
             }
             post {
                 always {
+                    // Archive test results
                     junit 'test-reports/results.xml'
                 }
             }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    def dockerImage = docker.build("reqgenius:${env.BUILD_ID}")
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }

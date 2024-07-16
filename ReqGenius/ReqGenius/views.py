@@ -6,3 +6,6 @@ def HomePage(request):
 def about(request):
     # return HttpResponse("My about")
     return render(request, 'about.html')
+def signup(request):
+    # return HttpResponse("My about")
+    return render(request, 'signup.html')

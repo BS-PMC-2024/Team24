@@ -37,14 +37,15 @@ pipeline {
             }
         }
 
-              stage('Run Tests') {
+         stage('Run Tests') {
             steps {
                 script {
-                    sh 'docker run --rm --platform linux/amd64 reqgenius:latest pytest --junitxml=results.xml'
-                    junit 'results.xml'
+                    // Run Django tests inside the Docker container with specified platform
+                    sh 'docker run --rm --platform linux/amd64 $DOCKER_IMAGE python ReqGenius/ReqGenius/tests.py'
                 }
             }
         }
+
 
 
         stage('Clean Up Docker Containers') {

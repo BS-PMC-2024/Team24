@@ -1,15 +1,24 @@
-
 pipeline {
     agent any
 
     environment {
         DOCKER_IMAGE = 'reqgenius:latest'
         REGISTRY = 'docker.io'
-        DOCKERFILE_PATH = 'dockerfile'
+        DOCKERFILE_PATH = 'Dockerfile'
         BUILD_CONTEXT = '.'
+        GIT_REPO = 'https://github.com/BS-PMC-2024/Team24.git' 
     }
 
     stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                    // Clone the Git repository
+                    git url: "$GIT_REPO", branch: 'main' 
+                }
+            }
+        }
+
         stage('Clean Up Old Docker Images') {
             steps {
                 script {
@@ -32,8 +41,7 @@ pipeline {
             steps {
                 script {
                     // Run Django tests inside the Docker container with specified platform
-                    docker run --rm --platform linux/amd64 $DOCKER_IMAGE python ReqGenius/ReqGenius/tests.py
-
+                    sh 'docker run --rm --platform linux/amd64 $DOCKER_IMAGE python ReqGenius/ReqGenius/tests.py'
                 }
             }
         }

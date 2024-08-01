@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     // Run Django tests inside the Docker container with specified platform
-                    docker run --rm --platform linux/amd64 $DOCKER_IMAGE python ReqGenius/manage.py test
+                    docker run --rm --platform linux/amd64 $DOCKER_IMAGE python ReqGenius/ReqGenius/tests.py
 
                 }
             }

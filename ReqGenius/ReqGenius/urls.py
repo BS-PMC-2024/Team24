@@ -13,4 +13,5 @@ urlpatterns = [
     path('studentDash/', views.studentDash, name='studentDash'),
     path('clientDash/', views.clientDash, name='clientDash'),
     path('adminDash/', views.adminDash, name='adminDash'),
+
 ]

@@ -6,6 +6,7 @@ from django.http import JsonResponse
 
 
 
+
 def HomePage(request):
     return render(request, 'Home.html')
 
@@ -85,6 +86,7 @@ def adminDash(request):
 #         else:
 #             return JsonResponse({'status': 'error', 'message': 'Please provide the required information.'})
 #     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
+
 
 
 

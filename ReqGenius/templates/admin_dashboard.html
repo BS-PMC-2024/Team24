@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #f8f9fa;
+      padding-top: 20px;
+      border-right: 1px solid #ddd;
+    }
+    .sidebar a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #333;
+      display: block;
+    }
+    .sidebar a:hover {
+      background-color: #ddd;
+    }
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+    .card-header {
+      background-color: #007bff;
+      color: white;
+    }
+    .card-body {
+      background-color: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2 class="text-center">Admin Dashboard</h2>
+    <a href="#feedbacks">Feedbacks</a>
+    <a href="#support-requests">Support Requests</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <div class="container">
+      <!-- Feedbacks Section -->
+      <div id="feedbacks" class="mb-5">
+        <h3>Feedbacks</h3>
+        <div class="card">
+          <div class="card-header">Feedbacks List</div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Feedback</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for feedback in feedbacks %}
+                <tr>
+                  <td>{{ feedback.user.username }}</td>
+                  <td>{{ feedback.content }}</td>
+                  <td>{{ feedback.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="3">No feedback available.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support Requests Section -->
+      <div id="support-requests">
+        <h3>Support Requests</h3>
+        <div class="card">
+          <div class="card-header">Support Requests List</div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for request in support_requests %}
+                <tr>
+                  <td>{{ request.user.username }}</td>
+                  <td>{{ request.message }}</td>
+                  <td>{{ request.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="3">No support requests available.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

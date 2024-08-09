@@ -139,12 +139,10 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
             <textarea id="scope" name="scope" placeholder="Provide a clear and concise description of the size of the software system..." required></textarea>
             <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('scope')">Submit</button>
             
-            <label for="definitions">1.3 Definitions, Acronyms, and Abbreviations</label>
-            <textarea id="definitions" name="definitions" placeholder="Define technical terms, acronyms, or abbreviations used..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('definitions')">Submit</button>
+
             
             <label for="references">1.4 References</label>
-            <textarea id="references" name="references" placeholder="List any external references used..." required></textarea>
+            <textarea id="references" name="references1" placeholder="List any external references used..." required></textarea>
             <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('references')">Submit</button>
             
             <label for="overview">1.5 Overview</label>
@@ -157,41 +155,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
       </div>
 
       <!-- Page 2: Comprehensive Description -->
-      <div id="page2" class="page-section">
-        <div class="form-container">
-          <h2>Comprehensive Description</h2>
-          <form id="compForm" method="post" action="/submit_comprehensive">
-            <label for="perspective">2.1 Perspective of the Software</label>
-            <textarea id="perspective" name="perspective" placeholder="Describe the context and environment of the software system..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('perspective')">Submit</button>
-            
-            <label for="functions">2.2 Software Functions</label>
-            <textarea id="functions" name="functions" placeholder="List the main functions and features of the software system..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('functions')">Submit</button>
-            
-            <label for="classification">2.3 User Classification and Characteristics</label>
-            <textarea id="classification" name="classification" placeholder="Define the different types of users who will use the software system..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('classification')">Submit</button>
-            
-            <label for="operating-system">2.4 Operating System</label>
-            <textarea id="operating-system" name="operating-system" placeholder="Describe the hardware and software environments in which the software system will operate..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('operating-system')">Submit</button>
-            
-            <label for="constraints">2.5 Design and Implementation Constraints</label>
-            <textarea id="constraints" name="constraints" placeholder="Identify any design or implementation constraints..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('constraints')">Submit</button>
-            
-            <label for="documentation">2.6 User Documentation</label>
-            <textarea id="documentation" name="documentation" placeholder="Describe the user documentation to be provided..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('documentation')">Submit</button>
-            
-            <label for="assumptions">2.7 Assumptions and Dependencies</label>
-            <textarea id="assumptions" name="assumptions" placeholder="List all assumptions made during the development of the SRS document..." required></textarea>
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('assumptions')">Submit</button>
-            
-            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="showPage('page1')">Back to Introduction</button>
-            <input type="submit" value="Submit">
-          </form>
+     
         </div>
       </div>
 

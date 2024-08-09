@@ -1,0 +1,10 @@
+# Ignore all .zip files
+*.zip
+
+# Ignore specific folders
+/node_modules
+/dist
+
+# Ignore system files
+.DS_Store
+Thumbs.db

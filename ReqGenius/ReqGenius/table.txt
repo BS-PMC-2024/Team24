@@ -1,0 +1,14 @@
+-- database: c:\Users\yovel\OneDrive\שולחן העבודה\Team24\ReqGenius\db.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+SELECT * FROM auth_group;
+
+CREATE TABLE tbl_users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    email TEXT NOT NULL,
+    is_student BOOLEAN NOT NULL CHECK (is_student IN (0, 1)),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

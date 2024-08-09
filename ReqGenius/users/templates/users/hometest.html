@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Background Video Test</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://www.w3schools.com/lib/w3-theme-black.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      html,
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+
+      /* Style for the video background */
+      .video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover;
+      }
+
+      /* Overlay to make text readable */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+
+      .w3-top {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Centered text */
+      .centered-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 48px;
+        z-index: 2;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 0.15em solid orange;
+        font-family: "Roboto", sans-serif;
+      }
+
+      /* Typing effect */
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes deleting {
+        from {
+          width: 100%;
+        }
+        to {
+          width: 0;
+        }
+      }
+
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: orange;
+        }
+      }
+
+      .typing-effect {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 2s steps(5, end), blink-caret 0.75s step-end infinite;
+      }
+
+      .typing-effect.typing {
+        animation: typing 2s steps(5, end), blink-caret 0.75s step-end infinite;
+      }
+
+      .typing-effect.deleting {
+        animation: deleting 2s steps(5, end),
+          blink-caret 0.75s step-end infinite;
+      }
+
+      /* Style for the bottom-right button */
+      .bottom-right-button {
+        padding: 10px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        border: 0;
+        background-color: white;
+        box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-size: 15px;
+        transition: all 0.5s ease;
+        position: fixed;
+        bottom: 40px;
+        right: 20px;
+        z-index: 3;
+      }
+
+      .bottom-right-button:hover {
+        letter-spacing: 3px;
+        background-color: hsl(41, 92%, 53%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: rgb(236, 153, 28) 0px 7px 29px 0px;
+      }
+
+      .bottom-right-button:active {
+        letter-spacing: 3px;
+        background-color: orange(261deg 80% 48%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: orange(93 24 220) 0px 0px 0px 0px;
+        transform: translateY(10px);
+        transition: 100ms;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="#home" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="login.html" class="w3-bar-item w3-button">
+            <i class="fa fa-user"></i> LOGIN
+          </a>
+          >
+
+          <a href="signup.html" class="w3-bar-item w3-button"
+            ><i class="fa fa-user"></i> SIGN IN</a
+          >
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+      style="display: none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+
+      <a href="login.html" onclick="w3_close()" class="w3-bar-item w3-button"
+        >LOG IN</a
+      >
+
+      <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button"
+        >SIGN IN</a
+      >
+    </nav>
+
+    <!-- Video background -->
+    <video class="video-background" autoplay muted loop>
+      <source src="background.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay for readability -->
+    <div class="overlay"></div>
+
+    <!-- Centered typing text -->
+    <div class="centered-text">
+      <span class="typing-effect">ПРИВЕТ</span>
+    </div>
+
+    <!-- Bottom-right button -->
+    <button class="bottom-right-button" onclick="goToPage()">
+      Want to know more?
+    </button>
+
+    <script>
+      function goToPage() {
+        window.location.href = "WantToKnowMore.html"; // Replace with your target page URL
+      }
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const typingElement = document.querySelector(".typing-effect");
+        let isDeleting = false;
+        let text = "Hello! Here you can do a SRS document.";
+        let currentIndex = 0;
+
+        function type() {
+          if (isDeleting) {
+            typingElement.style.animation =
+              "deleting 2s steps(5, end), blink-caret .75s step-end infinite";
+            currentIndex--;
+            if (currentIndex <= 0) {
+              isDeleting = false;
+            }
+          } else {
+            typingElement.style.animation =
+              "typing 2s steps(5, end), blink-caret .75s step-end infinite";
+            currentIndex++;
+            if (currentIndex >= text.length) {
+              isDeleting = true;
+            }
+          }
+          typingElement.textContent = text.substring(0, currentIndex);
+          setTimeout(type, 200);
+        }
+
+        type();
+      });
+    </script>
+  </body>
+</html>

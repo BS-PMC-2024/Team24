@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReqGenius - User Experience Feedback</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://www.w3schools.com/lib/w3-theme-black.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      html,
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Roboto", sans-serif;
+        background: url("req22.png") 50% fixed;
+      }
+
+      .feedback-form {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .feedback-form input[type="text"],
+      .feedback-form textarea,
+      .feedback-form select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+      }
+
+      .feedback-form input[type="submit"] {
+        background-color: orange;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .feedback-form input[type="submit"]:hover {
+        background-color: rgb(225, 93, 11);
+      }
+
+      .rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .rating > input {
+        display: none;
+      }
+
+      .rating > label {
+        position: relative;
+        width: 1.1em;
+        font-size: 30px;
+        color: #ffd600;
+        cursor: pointer;
+        margin-right: 5px;
+      }
+
+      .rating > label::before {
+        content: "\2605";
+        position: absolute;
+        opacity: 0;
+      }
+
+      .rating > label:hover:before,
+      .rating > label:hover ~ label:before {
+        opacity: 1 !important;
+      }
+
+      .rating > input:checked ~ label:before {
+        opacity: 1;
+      }
+
+      .rating:hover > input:checked ~ label:before {
+        opacity: 0.4;
+      }
+
+      .rating > label:after {
+        content: attr(title);
+        position: absolute;
+        left: 0;
+        top: 100%;
+        font-size: 12px;
+        color: #333;
+        width: max-content;
+      }
+      .w3-text-teal1 {
+        color: rgb(203, 137, 13);
+        font-size: 30px;
+        text-align: center;
+      }
+      .text {
+        text-align: center;
+      }
+
+      .content-container {
+        width: 1100px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8); /* רקע מט */
+        backdrop-filter: blur(10px); /* אפקט מט */
+        color: rgb(7, 0, 0);
+        border-radius: 10px;
+        margin: 20px;
+        box-shadow: 0 19px 18px rgba(0, 0, 0, 0.2); /* צל */
+        margin-left: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="#home" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="#contact" class="w3-bar-item w3-button">
+            <i class="fa fa-user"></i> SRS FORM
+          </a>
+          <a href="#work" class="w3-bar-item w3-button"
+            ><i class="fa fa-user"></i> Support Center</a
+          >
+          <a href="#contact" class="w3-bar-item w3-button">
+            <i class="fa fa-user"></i> SRS Information
+          </a>
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div
+      class="w3-overlay w3-hide-large"
+      onclick="w3_close()"
+      style="cursor: pointer"
+      title="close side menu"
+      id="myOverlay"
+    ></div>
+
+    <!-- Main content -->
+    <div class="w3-main">
+      <div class="w3-container w3-padding-64">
+        <div class="content-container">
+          <div class="w3-content3">
+            <p class="w3-text-teal1">User Experience Feedback</p>
+            <p class="text">
+              We value your opinion! Please take a moment to share your
+              experience with ReqGenius. Your feedback helps us improve our
+              service.
+            </p>
+
+            <div class="feedback-form">
+              <form id="feedbackForm">
+                <label for="name">Name <span style="color: red">*</span></label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your name.."
+                  required
+                />
+
+                <label for="email"
+                  >Email <span style="color: red">*</span></label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Your email.."
+                  required
+                />
+
+                <label for="overall_experience"
+                  >Overall Experience <span style="color: red">*</span></label
+                >
+                <div class="rating">
+                  <input
+                    type="radio"
+                    id="star5"
+                    name="overall_experience"
+                    value="5"
+                    required
+                  /><label for="star5" title="Excellent">5</label>
+                  <input
+                    type="radio"
+                    id="star4"
+                    name="overall_experience"
+                    value="4"
+                    required
+                  /><label for="star4" title="V.Good">4</label>
+                  <input
+                    type="radio"
+                    id="star3"
+                    name="overall_experience"
+                    value="3"
+                    required
+                  /><label for="star3" title="Good">3</label>
+                  <input
+                    type="radio"
+                    id="star2"
+                    name="overall_experience"
+                    value="2"
+                    required
+                  /><label for="star2" title="Fair">2</label>
+                  <input
+                    type="radio"
+                    id="star1"
+                    name="overall_experience"
+                    value="1"
+                    required
+                  /><label for="star1" title="Poor">1</label>
+                </div>
+
+                <label for="ease_of_use"
+                  >Ease of Use <span style="color: red">*</span></label
+                >
+                <select id="ease_of_use" name="ease_of_use" required>
+                  <option value="">Select rating...</option>
+                  <option value="5">Very Easy</option>
+                  <option value="4">Easy</option>
+                  <option value="3">Neutral</option>
+                  <option value="2">Difficult</option>
+                  <option value="1">Very Difficult</option>
+                </select>
+
+                <label for="functionality"
+                  >Functionality <span style="color: red">*</span></label
+                >
+                <select id="functionality" name="functionality" required>
+                  <option value="">Select rating...</option>
+                  <option value="5">Excellent</option>
+                  <option value="4">Very Good</option>
+                  <option value="3">Good</option>
+                  <option value="2">Fair</option>
+                  <option value="1">Poor</option>
+                </select>
+
+                <label for="design"
+                  >Visual Design <span style="color: red">*</span></label
+                >
+                <select id="design" name="design" required>
+                  <option value="">Select rating...</option>
+                  <option value="5">Excellent</option>
+                  <option value="4">Very Good</option>
+                  <option value="3">Good</option>
+                  <option value="2">Fair</option>
+                  <option value="1">Poor</option>
+                </select>
+
+                <label for="performance"
+                  >Performance <span style="color: red">*</span></label
+                >
+                <select id="performance" name="performance" required>
+                  <option value="">Select rating...</option>
+                  <option value="5">Very Fast</option>
+                  <option value="4">Fast</option>
+                  <option value="3">Average</option>
+                  <option value="2">Slow</option>
+                  <option value="1">Very Slow</option>
+                </select>
+
+                <label for="comments">Additional Comments</label>
+                <textarea
+                  id="comments"
+                  name="comments"
+                  placeholder="Please share any additional thoughts or suggestions.."
+                  style="height: 200px"
+                ></textarea>
+
+                <input type="submit" value="Submit Feedback" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var mySidebar = document.getElementById("mySidebar");
+      var overlayBg = document.getElementById("myOverlay");
+
+      function w3_open() {
+        if (mySidebar.style.display === "block") {
+          mySidebar.style.display = "none";
+          overlayBg.style.display = "none";
+        } else {
+          mySidebar.style.display = "block";
+          overlayBg.style.display = "block";
+        }
+      }
+
+      function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+      }
+
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Thank you for your feedback!");
+          this.reset();
+        });
+    </script>
+  </body>
+</html>
+<!-- document -->

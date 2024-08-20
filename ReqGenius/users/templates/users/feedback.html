@@ -29,13 +29,12 @@
         font-family: "Roboto", sans-serif;
         background: url("req22.png") 50% fixed;
       }
-
       .feedback-form {
         max-width: 600px;
         margin: 0 auto;
       }
-
       .feedback-form input[type="text"],
+      .feedback-form input[type="email"],
       .feedback-form textarea,
       .feedback-form select {
         width: 100%;
@@ -47,7 +46,6 @@
         margin-bottom: 16px;
         resize: vertical;
       }
-
       .feedback-form input[type="submit"] {
         background-color: orange;
         color: white;
@@ -56,11 +54,9 @@
         border-radius: 4px;
         cursor: pointer;
       }
-
       .feedback-form input[type="submit"]:hover {
         background-color: rgb(225, 93, 11);
       }
-
       .rating {
         display: flex;
         flex-direction: row-reverse;
@@ -68,11 +64,9 @@
         align-items: center;
         margin-bottom: 20px;
       }
-
       .rating > input {
         display: none;
       }
-
       .rating > label {
         position: relative;
         width: 1.1em;
@@ -81,26 +75,21 @@
         cursor: pointer;
         margin-right: 5px;
       }
-
       .rating > label::before {
         content: "\2605";
         position: absolute;
         opacity: 0;
       }
-
       .rating > label:hover:before,
       .rating > label:hover ~ label:before {
         opacity: 1 !important;
       }
-
       .rating > input:checked ~ label:before {
         opacity: 1;
       }
-
       .rating:hover > input:checked ~ label:before {
         opacity: 0.4;
       }
-
       .rating > label:after {
         content: attr(title);
         position: absolute;
@@ -118,37 +107,34 @@
       .text {
         text-align: center;
       }
-
       .content-container {
         width: 1100px;
         padding: 20px;
-        background: rgba(255, 255, 255, 0.8); /* רקע מט */
-        backdrop-filter: blur(10px); /* אפקט מט */
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
         color: rgb(7, 0, 0);
         border-radius: 10px;
         margin: 20px;
-        box-shadow: 0 19px 18px rgba(0, 0, 0, 0.2); /* צל */
+        box-shadow: 0 19px 18px rgba(0, 0, 0, 0.2);
         margin-left: 150px;
       }
     </style>
   </head>
   <body>
     <!-- Navbar -->
-
-    <!-- Navbar (sit on top) -->
     <div class="w3-top">
       <div class="w3-bar w3-white w3-card" id="myNavbar">
         <a href="#home" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
         <!-- Right-sided navbar links -->
         <div class="w3-right w3-hide-small">
-          <a href="#contact" class="w3-bar-item w3-button">
+          <a href="{% url 'srs_students' %}" class="w3-bar-item w3-button">
             <i class="fa fa-user"></i> SRS FORM
           </a>
-          <a href="#work" class="w3-bar-item w3-button"
-            ><i class="fa fa-user"></i> Support Center</a
-          >
-          <a href="#contact" class="w3-bar-item w3-button">
-            <i class="fa fa-user"></i> SRS Information
+          <a href="{% url 'want' %}" class="w3-bar-item w3-button">
+            <i class="fa fa-user"></i> HOME
+          </a>
+          <a href="{% url 'hometest' %}" class="w3-bar-item w3-button">
+            <i class="fa fa-user"></i> LOGOUT
           </a>
         </div>
         <!-- Hide right-floated links on small screens and replace them with a menu icon -->
@@ -184,7 +170,8 @@
             </p>
 
             <div class="feedback-form">
-              <form id="feedbackForm">
+              <form id="feedbackForm" method="post">
+                {% csrf_token %}
                 <label for="name">Name <span style="color: red">*</span></label>
                 <input
                   type="text"
@@ -192,6 +179,7 @@
                   name="name"
                   placeholder="Your name.."
                   required
+                  value="{{ initial_data.name }}"
                 />
 
                 <label for="email"
@@ -203,6 +191,7 @@
                   name="email"
                   placeholder="Your email.."
                   required
+                  value="{{ initial_data.email }}"
                 />
 
                 <label for="overall_experience"
@@ -251,11 +240,11 @@
                 >
                 <select id="ease_of_use" name="ease_of_use" required>
                   <option value="">Select rating...</option>
-                  <option value="5">Very Easy</option>
-                  <option value="4">Easy</option>
-                  <option value="3">Neutral</option>
-                  <option value="2">Difficult</option>
-                  <option value="1">Very Difficult</option>
+                  <option value="Very Easy">Very Easy</option>
+                  <option value="Easy">Easy</option>
+                  <option value="Neutral">Neutral</option>
+                  <option value="Difficult">Difficult</option>
+                  <option value="Very Difficult">Very Difficult</option>
                 </select>
 
                 <label for="functionality"
@@ -263,23 +252,23 @@
                 >
                 <select id="functionality" name="functionality" required>
                   <option value="">Select rating...</option>
-                  <option value="5">Excellent</option>
-                  <option value="4">Very Good</option>
-                  <option value="3">Good</option>
-                  <option value="2">Fair</option>
-                  <option value="1">Poor</option>
+                  <option value="Excellent">Excellent</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Good">Good</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Poor">Poor</option>
                 </select>
 
-                <label for="design"
+                <label for="visual_design"
                   >Visual Design <span style="color: red">*</span></label
                 >
-                <select id="design" name="design" required>
+                <select id="visual_design" name="visual_design" required>
                   <option value="">Select rating...</option>
-                  <option value="5">Excellent</option>
-                  <option value="4">Very Good</option>
-                  <option value="3">Good</option>
-                  <option value="2">Fair</option>
-                  <option value="1">Poor</option>
+                  <option value="Excellent">Excellent</option>
+                  <option value="Very Good">Very Good</option>
+                  <option value="Good">Good</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Poor">Poor</option>
                 </select>
 
                 <label for="performance"
@@ -287,17 +276,17 @@
                 >
                 <select id="performance" name="performance" required>
                   <option value="">Select rating...</option>
-                  <option value="5">Very Fast</option>
-                  <option value="4">Fast</option>
-                  <option value="3">Average</option>
-                  <option value="2">Slow</option>
-                  <option value="1">Very Slow</option>
+                  <option value="Very Fast">Very Fast</option>
+                  <option value="Fast">Fast</option>
+                  <option value="Average">Average</option>
+                  <option value="Slow">Slow</option>
+                  <option value="Very Slow">Very Slow</option>
                 </select>
 
-                <label for="comments">Additional Comments</label>
+                <label for="additional_comments">Additional Comments</label>
                 <textarea
-                  id="comments"
-                  name="comments"
+                  id="additional_comments"
+                  name="additional_comments"
                   placeholder="Please share any additional thoughts or suggestions.."
                   style="height: 200px"
                 ></textarea>
@@ -332,11 +321,11 @@
       document
         .getElementById("feedbackForm")
         .addEventListener("submit", function (e) {
-          e.preventDefault();
-          alert("Thank you for your feedback!");
-          this.reset();
+          // Remove default form submission behavior
+          // e.preventDefault();
+          // alert("Thank you for your feedback!");
+          // this.reset();
         });
     </script>
   </body>
 </html>
-<!-- document -->

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Support Center - ReqGenious</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <style>
+      html,
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Roboto", sans-serif;
+      }
+      .support-table {
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="{% url 'adminhome' %}" class="w3-bar-item w3-button w3-wide"
+          >ReqGenious</a
+        >
+        <div class="w3-right w3-hide-small">
+          <a href="#team" class="w3-bar-item w3-button">TEAM</a>
+          <a href="#work" class="w3-bar-item w3-button">EDIT SRS</a>
+          <a href="{% url 'support' %}" class="w3-bar-item w3-button"
+            >SUPPORT</a
+          >
+          <a href="{% url 'hometest' %}" class="w3-bar-item w3-button"
+            >LOGOUT</a
+          >
+        </div>
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+      style="display: none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+      <a
+        href="{% url 'adminhome' %}"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button"
+        >HOME</a
+      >
+      <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button"
+        >TEAM</a
+      >
+      <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button"
+        >WORK</a
+      >
+    </nav>
+
+    <div class="w3-container w3-padding-64 w3-center">
+      <h2>User Support Requests</h2>
+      <p>Total support requests: {{ support_requests.count }}</p>
+      {% if support_requests %}
+      <div class="w3-responsive support-table">
+        <table class="w3-table-all w3-hoverable">
+          <thead>
+            <tr class="w3-light-grey">
+              <th>Username</th>
+              <th>Email</th>
+              <th>Report</th>
+              <th>File</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for request in support_requests %}
+            <tr>
+              <td>{{ request.username }}</td>
+              <td>{{ request.email }}</td>
+              <td>{{ request.report|truncatechars:100 }}</td>
+              <td>
+                {% if request.file %}
+                <a href="{{ request.file }}" target="_blank">View File</a>
+                {% else %} No file attached {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p>No support requests available.</p>
+      {% endif %}
+    </div>
+
+    <script>
+      // Script to open and close sidebar
+      function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+      }
+      function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+      }
+    </script>
+  </body>
+</html>

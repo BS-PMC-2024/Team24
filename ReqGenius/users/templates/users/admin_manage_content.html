@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Educational Content - ReqGenious</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Raleway", sans-serif;
+      }
+      .orange-text {
+        color: orange;
+      }
+      .btn-custom {
+        background-color: orange;
+        color: #fff;
+        border-radius: 30px;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+      }
+      .btn-custom:hover {
+        background-color: darkorange;
+      }
+      .content-container {
+        width: 95%;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        color: rgb(7, 0, 0);
+        border-radius: 10px;
+        margin: 20px auto;
+        box-shadow: 0 19px 18px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a
+          href="{% url 'admin_manage_content' %}"
+          class="w3-bar-item w3-button w3-wide"
+          >ReqGenious</a
+        >
+        <div class="w3-right w3-hide-small">
+          <a
+            href="{% url 'admin_manage_content' %}"
+            class="w3-bar-item w3-button"
+            >Manage Content</a
+          >
+          <a
+            href="{% url 'hometest' %}?action=logout"
+            class="w3-bar-item w3-button"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Content Management -->
+    <div class="w3-container" style="margin-top: 80px">
+      <div class="content-container">
+        <h2 class="w3-center orange-text">Manage Educational Content</h2>
+        <form
+          method="post"
+          class="w3-container w3-card-4 w3-light-grey w3-margin"
+        >
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit" class="w3-button btn-custom w3-margin-bottom">
+            Add Educational Content
+          </button>
+        </form>
+
+        <h3 class="w3-center">Existing Content</h3>
+        <ul class="w3-ul w3-card-4">
+          {% for item in content %}
+          <li class="w3-bar">
+            <span class="w3-large">{{ item.title }}</span><br />
+            <span
+              ><a href="{{ item.url }}" target="_blank" class="w3-text-blue"
+                >{{ item.url }}</a
+              ></span
+            >
+            <a
+              href="{% url 'remove_content' item.id %}"
+              class="w3-button w3-red w3-right"
+              >Remove</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Zoom Meetings Management -->
+    <div class="w3-container">
+      <div class="content-container">
+        <h2 class="w3-center orange-text">Manage Knowledge Meetings (ZOOM)</h2>
+        <form
+          method="post"
+          action="{% url 'add_zoom_meeting' %}"
+          class="w3-container w3-card-4 w3-light-grey w3-margin"
+        >
+          {% csrf_token %}
+          <label for="zoom_link">Enter ZOOM meeting link:</label>
+          <input
+            type="text"
+            id="zoom_link"
+            name="zoom_link"
+            class="w3-input w3-border"
+            placeholder="https://zoom.us/your-meeting-link"
+            required
+          />
+          <button type="submit" class="w3-button btn-custom w3-margin-top">
+            Add Meeting Link
+          </button>
+        </form>
+
+        <h3 class="w3-center">Existing Meetings</h3>
+        <ul class="w3-ul w3-card-4">
+          {% for meeting in zoom_meetings %}
+          <li class="w3-bar">
+            <span class="w3-large">Meeting on ZOOM</span><br />
+            <span
+              ><a href="{{ meeting.url }}" target="_blank" class="w3-text-blue"
+                >{{ meeting.url }}</a
+              ></span
+            >
+            <a
+              href="{% url 'remove_zoom_meeting' meeting.id %}"
+              class="w3-button w3-red w3-right"
+              >Remove</a
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

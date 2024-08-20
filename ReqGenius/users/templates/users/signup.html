@@ -4,15 +4,20 @@
     <title>Sign Up</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    {% load static %}  <!-- Load static files in Django -->
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
          body {
         font-family: "Open Sans", sans-serif;
         height: 100vh;
-        background: url("req22.png") 50% fixed;
+        background: url("{% static 'req22.png' %}") 50% fixed;
         background-size: cover;
         }
 
@@ -194,7 +199,7 @@
 
 <div class="w3-top">
     <div class="w3-bar w3-white w3-card" id="myNavbar">
-      <a href="hometest.html" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
+      <a href="{% url 'hometest' %}" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
       <!-- Right-sided navbar links -->
       <div class="w3-right w3-hide-small">
         
@@ -232,17 +237,22 @@
 
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 <div class="wrapper">
-    <form class="login">
+    <form class="login" method="POST" action="{% url 'signup' %}">
+      {% csrf_token %}
       <p class="title">Sign up</p>
-      <input type="text" placeholder="Username" autofocus/>
+      <input type="text" name="username" placeholder="Username " autofocus/>
       <i class="fa fa-user"></i>
-      <input type="email" placeholder="Email" />
+      <input type="email" name=email placeholder="Email" />
       <i class="fa fa-key"></i>
-      <input type="password" placeholder="Password" />
+      <input type="password" name=password placeholder="Password" />
       <i class="fa fa-key"></i>
-      <input type="confirm-password" placeholder="Confirm assword" />
-      <i class="fa fa-key"></i>
-      <a href="login.html">You have an account?</a>
+      <select name="student" style="width: 100%; padding: 15px 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 2px; color: #ccc;">
+        <option value="" disabled selected>Are you a student?</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select>
+    
+      <a href="{% url 'login' %}">You have an account?</a>
       <button>
         <i class="spinner"></i>
         <span class="state">Sign up</span>

@@ -4,6 +4,11 @@
     <title>ABOUT US</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load static files -->
+    {% load static %}
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link
       rel="stylesheet"
@@ -13,6 +18,10 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+    <!-- Custom CSS (from static directory) -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
     <style>
       body,
       h1,
@@ -34,7 +43,7 @@
       .bgimg-1 {
         background-position: center;
         background-size: cover;
-        background-image: url("reqw2.png");
+        background-image: url("{% static 'reqw2.png' %}");
         min-height: 100%;
       }
 
@@ -47,7 +56,9 @@
     <!-- Navbar (sit on top) -->
     <div class="w3-top">
       <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="hometest.html" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
+        <a href="{% url 'hometest' %}" class="w3-bar-item w3-button w3-wide"
+          >ReqGenious</a
+        >
         <!-- Right-sided navbar links -->
         <div class="w3-right w3-hide-small">
           <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
@@ -58,10 +69,9 @@
             ><i class="fa fa-th"></i> WORK</a
           >
 
-          <a href="login.html" class="w3-bar-item w3-button">
+          <a href="{% url 'login' %}" class="w3-bar-item w3-button">
             <i class="fa fa-user"></i> LOGIN
-        </a>
-        
+          </a>
         </div>
         <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
@@ -136,7 +146,7 @@
 
     <!-- About Section -->
     <div class="w3-container" style="padding: 128px 16px" id="about">
-      <h3 class="w3-center" style="color: coral;">ABOUT THE COMPANY</h3>
+      <h3 class="w3-center" style="color: coral">ABOUT THE COMPANY</h3>
       <p class="w3-center w3-large">Key features of our company</p>
       <div class="w3-row-padding w3-center" style="margin-top: 64px">
         <div class="w3-quarter">
@@ -178,7 +188,7 @@
     <div class="w3-container w3-light-grey" style="padding: 128px 16px">
       <div class="w3-row-padding">
         <div class="w3-col m6">
-          <h3 style="color: coral;">We know to create SRS.</h3>
+          <h3 style="color: coral">We know to create SRS.</h3>
           <p>
             Built to grow with your needs, our project can easily scale to
             handle increasing demands and complexities.<br />
@@ -192,7 +202,7 @@
         <div class="w3-col m6">
           <img
             class="w3-image w3-round-large"
-            src="pen.jpg"
+            src="{% static 'pen.jpg' %}"
             alt="Buildings"
             width="700"
             height="394"
@@ -203,12 +213,16 @@
 
     <!-- Team Section -->
     <div class="w3-container" style="padding: 128px 16px" id="team">
-      <h3 class="w3-center" style="color: coral;">THE TEAM</h3>
+      <h3 class="w3-center" style="color: coral">THE TEAM</h3>
       <p class="w3-center w3-large">The ones who runs this company</p>
       <div class="w3-row-padding w3-grayscale" style="margin-top: 64px">
         <div class="w3-col l3 m6 w3-margin-bottom">
           <div class="w3-card">
-            <img src="vica.jpeg" alt="John" style="width: 100%" />
+            <img
+              src="{% static 'vica.jpeg' %}"
+              alt="John"
+              style="width: 100%"
+            />
             <div class="w3-container">
               <h3>Victoria Grand</h3>
               <p class="w3-opacity">Product Manager</p>
@@ -222,7 +236,7 @@
         </div>
         <div class="w3-col l3 m6 w3-margin-bottom">
           <div class="w3-card">
-            <img src="noa.jpeg" alt="Jane" style="width: 100%" />
+            <img src="{% static 'noa.jpeg' %}" alt="Jane" style="width: 100%" />
             <div class="w3-container">
               <h3>Noa Rofe</h3>
               <p class="w3-opacity">Art Director</p>
@@ -236,7 +250,11 @@
         </div>
         <div class="w3-col l3 m6 w3-margin-bottom">
           <div class="w3-card">
-            <img src="eden.jpeg" alt="Mike" style="width: 100%" />
+            <img
+              src="{% static 'eden.jpeg' %}"
+              alt="Mike"
+              style="width: 100%"
+            />
             <div class="w3-container">
               <h3>Eden Edry</h3>
               <p class="w3-opacity">Web Designer</p>
@@ -251,7 +269,11 @@
         </div>
         <div class="w3-col l3 m6 w3-margin-bottom">
           <div class="w3-card">
-            <img src="yovel2.jpeg" alt="Dan" style="width: 100%" />
+            <img
+              src="{% static 'yovel2.jpeg' %}"
+              alt="Dan"
+              style="width: 100%"
+            />
             <div class="w3-container">
               <h3>Yovel Danino</h3>
               <p class="w3-opacity">Designer</p>
@@ -295,7 +317,7 @@
       <div class="w3-row-padding" style="margin-top: 64px">
         <div class="w3-col l3 m6">
           <img
-            src="ateractive.webp"
+            src="{% static 'ateractive.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -304,7 +326,7 @@
         </div>
         <div class="w3-col l3 m6">
           <img
-            src="tips.webp"
+            src="{% static 'tips.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -313,7 +335,7 @@
         </div>
         <div class="w3-col l3 m6">
           <img
-            src="zoom.webp"
+            src="{% static 'zoom.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -322,7 +344,7 @@
         </div>
         <div class="w3-col l3 m6">
           <img
-            src="srs.webp"
+            src="{% static 'srs.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -334,7 +356,7 @@
       <div class="w3-row-padding w3-section">
         <div class="w3-col l3 m6">
           <img
-            src="srs1.webp"
+            src="{% static 'srs1.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -343,7 +365,7 @@
         </div>
         <div class="w3-col l3 m6">
           <img
-            src="srs2.webp"
+            src="{% static 'srs2.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -352,7 +374,7 @@
         </div>
         <div class="w3-col l3 m6">
           <img
-            src="dd.webp"
+            src="{% static 'dd.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -361,7 +383,7 @@
         </div>
         <div class="w3-col l3 m6">
           <img
-            src="sss.webp"
+            src="{% static 'sss.webp' %}"
             style="width: 100%"
             onclick="onClick(this)"
             class="w3-hover-opacity"
@@ -390,23 +412,18 @@
       </div>
     </div>
 
-    
-    
-        <!-- Image of location/map -->
-        <img
-          src="/w3images/map.jpg"
-          class="w3-image w3-greyscale"
-          style="width: 100%; margin-top: 48px"
-        />
-      </div>
-    </div>
+    <!-- Image of location/map -->
+    <img
+      src="{% static 'map.jpg' %}"
+      class="w3-image w3-greyscale"
+      style="width: 100%; margin-top: 48px"
+    />
 
     <!-- Footer -->
     <footer class="w3-center w3-black w3-padding-64">
       <a href="#home" class="w3-button w3-light-grey"
         ><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a
       >
-      
     </footer>
 
     <script>

@@ -116,3 +116,5 @@ class NewTable(models.Model):
 
     def __str__(self):
         return f'{self.field1}'
+    def __str__(self) -> str:
+        return super().__str__()

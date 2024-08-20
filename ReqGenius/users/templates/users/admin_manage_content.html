@@ -3,88 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Educational Content</title>
+    <title>Manage Educational Content - ReqGenious</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* סגנון כללי לגוף העמוד */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f1f1f1;
-            margin: 0;
-            padding: 0;
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif;
         }
-
-        /* עיצוב לכותרות */
-        h2 {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 2em;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .orange-text {
+            color: orange;
         }
-
-        h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+        .btn-custom {
+            background-color: orange;
+            color: #fff;
+            border-radius: 30px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
         }
-
-        /* עיצוב לטופס */
-        form {
-            margin-bottom: 40px;
+        .btn-custom:hover {
+            background-color: darkorange;
         }
-
-        /* כפתור הוספה */
-        button[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        /* סגנון לרשימת התכנים */
-        .w3-ul {
-            margin-top: 20px;
-            padding-left: 0;
-            background-color: #fff;
-            border-radius: 5px;
-        }
-
-        .w3-ul li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .w3-ul li:last-child {
-            border-bottom: none;
-        }
-
-        /* סגנון לכפתור הסרה */
-        .w3-button.w3-red {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .w3-button.w3-red:hover {
-            background-color: #e53935;
+        .content-container {
+            width: 95%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            color: rgb(7, 0, 0);
+            border-radius: 10px;
+            margin: 20px auto;
+            box-shadow: 0 19px 18px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
 
-    <!-- תפריט הניווט העליון -->
+    <!-- Navbar -->
     <div class="w3-top">
-        <div class="w3-bar w3-white w3-card">
-            <a href="{% url 'admin_manage_content' %}" class="w3-bar-item w3-button">ReqGenious</a>
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="{% url 'admin_manage_content' %}" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
             <div class="w3-right w3-hide-small">
                 <a href="{% url 'admin_manage_content' %}" class="w3-bar-item w3-button">Manage Content</a>
                 <a href="{% url 'hometest' %}?action=logout" class="w3-bar-item w3-button">Logout</a>
@@ -92,46 +48,51 @@
         </div>
     </div>
 
-    <!-- ניהול תכנים לימודיים -->
-    <div class="w3-container" style="margin-top: 100px;">
-        <h2>ניהול תכנים לימודיים</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="w3-button">הוסף תוכן לימודי</button>
-        </form>
+    <!-- Educational Content Management -->
+    <div class="w3-container" style="margin-top: 80px;">
+        <div class="content-container">
+            <h2 class="w3-center orange-text">Manage Educational Content</h2>
+            <form method="post" class="w3-container w3-card-4 w3-light-grey w3-margin">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="w3-button btn-custom w3-margin-bottom">Add Educational Content</button>
+            </form>
 
-        <h3>תוכן קיים</h3>
-        <ul class="w3-ul w3-card">
-            {% for item in content %}
-            <li class="w3-bar">
-                <span>{{ item.title }} - <a href="{{ item.url }}" target="_blank">{{ item.url }}</a></span>
-                <a href="{% url 'remove_content' item.id %}" class="w3-button w3-red w3-right">הסר</a>
-            </li>
-            {% endfor %}
-        </ul>
+            <h3 class="w3-center">Existing Content</h3>
+            <ul class="w3-ul w3-card-4">
+                {% for item in content %}
+                <li class="w3-bar">
+                    <span class="w3-large">{{ item.title }}</span><br>
+                    <span><a href="{{ item.url }}" target="_blank" class="w3-text-blue">{{ item.url }}</a></span>
+                    <a href="{% url 'remove_content' item.id %}" class="w3-button w3-red w3-right">Remove</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
-    <!-- ניהול מפגשי זום -->
-    <div class="w3-container" style="margin-top: 50px;">
-        <h2>ניהול מפגשי ידע (ZOOM)</h2>
-        <form method="post" action="{% url 'add_zoom_meeting' %}">
-            {% csrf_token %}
-            <label for="zoom_link">הכנס קישור למפגש ZOOM:</label>
-            <input type="text" id="zoom_link" name="zoom_link" class="w3-input" placeholder="https://zoom.us/your-meeting-link" required>
-            <button type="submit" class="w3-button">הוסף קישור מפגש</button>
-        </form>
+    <!-- Zoom Meetings Management -->
+    <div class="w3-container">
+        <div class="content-container">
+            <h2 class="w3-center orange-text">Manage Knowledge Meetings (ZOOM)</h2>
+            <form method="post" action="{% url 'add_zoom_meeting' %}" class="w3-container w3-card-4 w3-light-grey w3-margin">
+                {% csrf_token %}
+                <label for="zoom_link">Enter ZOOM meeting link:</label>
+                <input type="text" id="zoom_link" name="zoom_link" class="w3-input w3-border" placeholder="https://zoom.us/your-meeting-link" required>
+                <button type="submit" class="w3-button btn-custom w3-margin-top">Add Meeting Link</button>
+            </form>
 
-        <h3>מפגשים קיימים</h3>
-        <ul class="w3-ul w3-card">
-            {% for meeting in zoom_meetings %}
-            <li class="w3-bar">
-                <span>מפגש ב-<a href="{{ meeting.url }}" target="_blank">ZOOM</a></span>
-                <a href="{% url 'remove_zoom_meeting' meeting.id %}" class="w3-button w3-red w3-right">הסר</a>
-            </li>
-            {% endfor %}
-            
-        </ul>
+            <h3 class="w3-center">Existing Meetings</h3>
+            <ul class="w3-ul w3-card-4">
+                {% for meeting in zoom_meetings %}
+                <li class="w3-bar">
+                    <span class="w3-large">Meeting on ZOOM</span><br>
+                    <span><a href="{{ meeting.url }}" target="_blank" class="w3-text-blue">{{ meeting.url }}</a></span>
+                    <a href="{% url 'remove_zoom_meeting' meeting.id %}" class="w3-button w3-red w3-right">Remove</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
 </body>

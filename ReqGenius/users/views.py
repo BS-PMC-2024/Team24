@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django import forms
 
+<<<<<<< HEAD
 from django.forms import ValidationError
 from django.utils import timezone
 from django.http import JsonResponse
@@ -20,6 +21,10 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+=======
+from django.shortcuts import redirect
+from .models import SupportTicket
+>>>>>>> cac796c0bedfcf244549c761cf72aebc1555d4d3
 
 
 from django.shortcuts import render, redirect
@@ -27,6 +32,13 @@ from .models import EducationalContent
 from .form import EducationalContentForm
 
 
+
+def admin_feedback(request):
+    feedbacks = Feedback.objects.all().order_by('-created_at')
+    context = {
+        'feedbacks': feedbacks
+    }
+    return render(request, 'admin_feedback.html', context)
 
 def admin_feedback(request):
     feedbacks = Feedback.objects.all().order_by('-created_at')

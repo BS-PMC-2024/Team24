@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Content - ReqGenious</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif;
+        }
+        .orange-text {
+            color: orange;
+        }
+        .btn-custom {
+            background-color: orange;
+            color: #fff;
+            border-radius: 30px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        .btn-custom:hover {
+            background-color: darkorange;
+        }
+        .content-container {
+            width: 95%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            color: rgb(7, 0, 0);
+            border-radius: 10px;
+            margin: 20px auto;
+            box-shadow: 0 19px 18px rgba(0, 0, 0, 0.2);
+        }
+        .w3-ul li {
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+        }
+        .w3-ul li:last-child {
+            border-bottom: none;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .w3-button.w3-red {
+            background-color: #f44336;
+            color: white;
+            float: right;
+        }
+        .w3-button.w3-red:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="{% url 'view_content' %}" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
+            <div class="w3-right w3-hide-small">
+                <a href="{% url 'view_content' %}" class="w3-bar-item w3-button">Educational Content</a>
+                <a href="{% url 'hometest' %}?action=logout" class="w3-bar-item w3-button">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Educational Content for Students -->
+    <div class="w3-container" style="margin-top: 80px;">
+        <div class="content-container">
+            <h2 class="w3-center orange-text">Educational Content</h2>
+
+            <!-- Educational Content List -->
+            <div class="content-list">
+                <h3 class="w3-center">Learning Materials</h3>
+                <ul class="w3-ul w3-card-4">
+                    {% for item in content %}
+                    <li class="w3-bar">
+                        <span class="w3-large">{{ item.title }}</span><br>
+                        <span><a href="{{ item.url }}" target="_blank" class="w3-text-blue">{{ item.url }}</a></span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Zoom Meetings List -->
+            <div class="zoom-list">
+                <h3 class="w3-center">Zoom Meetings</h3>
+                <ul class="w3-ul w3-card-4">
+                    {% for meeting in zoom_meetings %}
+                    <li class="w3-bar">
+                        <span class="w3-large">Meeting on ZOOM</span><br>
+                        <span><a href="{{ meeting.url }}" target="_blank" class="w3-text-blue">{{ meeting.url }}</a></span>
+                        {% if request.user.is_staff %}
+                        <a href="{% url 'remove_zoom_meeting' meeting.id %}" class="w3-button w3-red w3-right">Remove</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Feedback - ReqGenious</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif;
+        }
+        .feedback-table {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="{% url 'adminhome' %}" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
+        <div class="w3-right w3-hide-small">
+            <a href="#team" class="w3-bar-item w3-button">TEAM</a>
+            <a href="#work" class="w3-bar-item w3-button">EDIT SRS</a>
+            <a href="{% url 'admin_feedback' %}" class="w3-bar-item w3-button">FEEDBACK</a>
+            <a href="{% url 'hometest' %}" class="w3-bar-item w3-button">LOGOUT</a>
+        </div>
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Sidebar on small screens when clicking the menu icon -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+    <a href="{% url 'adminhome' %}" onclick="w3_close()" class="w3-bar-item w3-button">HOME</a>
+    <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
+    <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
+</nav>
+<form>
+    <form method="POST" action="{% url 'admin_feedback' %}" class="w3-margin-bottom">
+        {% csrf_token %}
+{% csrf_token %}
+
+<div class="w3-container w3-padding-64 w3-center">
+    <h2>User Feedback</h2>
+    <p>Total feedbacks: {{ feedbacks.count }}</p>
+
+    {% if feedbacks %}
+    <div class="w3-responsive feedback-table">
+        <table class="w3-table-all w3-hoverable">
+            <thead>
+                <tr class="w3-light-grey">
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Overall Experience</th>
+                    <th>Ease of Use</th>
+                    <th>Functionality</th>
+                    <th>Visual Design</th>
+                    <th>Performance</th>
+                    <th>Comments</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feedback in feedbacks %}
+                <tr>
+                    <td>{{ feedback.name }}</td>
+                    <td>{{ feedback.email }}</td>
+                    <td>{{ feedback.overall_experience }}</td>
+                    <td>{{ feedback.ease_of_use }}</td>
+                    <td>{{ feedback.functionality }}</td>
+                    <td>{{ feedback.visual_design }}</td>
+                    <td>{{ feedback.performance }}</td>
+                    <td>{{ feedback.additional_comments|truncatechars:50 }}</td>
+                    <td>{{ feedback.created_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No feedback available.</p>
+    {% endif %}
+</div>
+</form>
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+
+</body>
+</html>

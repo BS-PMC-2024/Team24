@@ -8,3 +8,10 @@
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+
+*.pyc
+__pycache__/
+db.sqlite3
+
+

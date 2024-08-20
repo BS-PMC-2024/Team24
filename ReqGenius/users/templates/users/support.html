@@ -20,12 +20,33 @@
         .main-content {
             margin-left: 250px;
             padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            line-height: 1.5;
         }
         .support-form {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .support-form input[type=text], .support-form textarea {
+        .support-form label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        .support-form input[type=text], 
+        .support-form textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #ccc;
@@ -34,6 +55,12 @@
             margin-top: 6px;
             margin-bottom: 16px;
             resize: vertical;
+            transition: border-color 0.3s;
+        }
+        .support-form input[type=text]:focus, 
+        .support-form textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
         }
         .support-form input[type=submit] {
             background-color: #4CAF50;
@@ -42,6 +69,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
         .support-form input[type=submit]:hover {
             background-color: #45a049;
@@ -58,18 +87,14 @@
     </style>
 </head>
 <body>
-
 <!-- Navbar -->
 <div class="w3-top">
     <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
         <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
         <a href="#" class="w3-bar-item w3-button w3-theme-l1">Home</a>
         <a href="srs.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">SRS form</a>
-        <!-- <a href="support.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Support Center</a> -->
         <a href="{% url 'support' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Support Center</a>
         <a href="{% url 'srsinfo' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">SRS Information</a>
-        <!-- <a href="srs_information.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">SRS Information</a> -->
-        <!-- <a href="feedback.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Feedback</a> -->
         <a href="{% url 'feedback' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Feedback</a>
         <a href="login/" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white">
             <i class="fa fa-user"></i> Login
@@ -83,6 +108,8 @@
 <div class="main-content">
     <h1>Support Center</h1>
     <p>If you're experiencing any issues or have questions, please fill out the form below. Our support team will get back to you as soon as possible.</p>
+    <h5>new page </h5>
+    <h5>"Support is the cornerstone of building strong relationships, empowering individuals to overcome challenges and achieve their goals."</h5>
     
     <div class="support-form">
         <form id="supportForm" action="/submit_support" method="post">

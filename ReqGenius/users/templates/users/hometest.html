@@ -167,22 +167,7 @@
         <a href="#home" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
         <!-- Right-sided navbar links -->
         <div class="w3-right w3-hide-small">
-          {% if request.session.user_id %} {% if request.session.is_student %}
-          <a href="{% url 'srs_students' %}" class="w3-bar-item w3-button">
-            <i class="fa fa-file-text-o"></i> SRS for students
-          {% else %}
-          <a href="{% url 'srsnew' %}" class="w3-bar-item w3-button">
-            <i class="fa fa-file-text-o"></i> SRS 
-          </a>
-          {% endif %}
-          <a
-            href="{% url 'hometest' %}?action=logout"
-            class="w3-bar-item w3-button"
-          >
-            <i class="fa fa-sign-out"></i> Logout
-          </a>
-          {% else %}
-          <a href="{% url 'login' %}" class="w3-bar-item w3-button">
+          <a href="login.html" class="w3-bar-item w3-button">
             <i class="fa fa-user"></i> LOGIN
           </a>
           <a href="{% url 'signup' %}" class="w3-bar-item w3-button">

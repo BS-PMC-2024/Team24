@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>SRS Document - Introduction</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+
+/* Style for sidebar */
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+  color: white; /* Adjust text color for visibility */
+  overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+/* Overlay effect when opening sidebar on small screens */
+.w3-overlay.w3-hide-large {
+  cursor: pointer;
+  background-color: rgba(0,0,0,0.6); /* Semi-transparent overlay */
+}
+
+/* Main content: shift it to the right by 250 pixels when the sidebar is visible */
+.w3-main {
+  margin-left: 250px;
+  padding: 20px;
+}
+
+/* Custom style for the form */
+.form-container {
+  max-width: 600px;
+  margin: auto;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #333;
+}
+
+.form-container label {
+  font-weight: bold;
+}
+
+.form-container input[type=text], 
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 20px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-container textarea {
+  height: 150px;
+}
+
+.form-container input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.form-container input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+/* Hide all sections by default except the first one */
+.page-section {
+  display: none;
+}
+
+/* Show the first section by default */
+#page1 {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+      <a href="{% url 'srs' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">SRS form</a>
+      <!-- <a href="support.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Support Center</a> -->
+      <a href="{% url 'support' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Support Center</a>
+      <a href="{% url 'srsinfo' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">SRS Information</a>
+      <!-- <a href="srs_information.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">SRS Information</a> -->
+      <!-- <a href="feedback.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Feedback</a> -->
+      <a href="{% url 'feedback' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Feedback</a>
+      <a href="login/" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white">
+          <i class="fa fa-user"></i> Login
+      </a>
+      <a href="signup/" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white">
+          <i class="fa fa-hand-pointer-o signup-icon"></i> Sign Up
+      </a>
+  </div>
+</div
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main">
+  <div class="w3-container w3-padding-64">
+    <div class="w3-content">
+      
+      <!-- Page 1: Introduction -->
+      <div id="page1" class="page-section">
+        <div class="form-container">
+          <h2>Introduction</h2>
+          <a href="https://www.youtube.com/watch?v=M5DY3eTyhUA">TUTORIAL</a>
+          <form id="introForm" method="post" action="/submit_intro">
+            <label for="purpose">1.1 Purpose</label>
+            <textarea id="purpose" name="purpose" placeholder="Briefly describe the purpose of the software..." required></textarea>
+            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('purpose')">Submit</button>
+            
+            <label for="scope">1.2 Scope</label>
+            <textarea id="scope" name="scope" placeholder="Provide a clear and concise description of the size of the software system..." required></textarea>
+            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('scope')">Submit</button>
+            
+
+            
+            <label for="references">1.4 References</label>
+            <textarea id="references" name="references1" placeholder="List any external references used..." required></textarea>
+            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('references')">Submit</button>
+            
+            <label for="overview">1.5 Overview</label>
+            <textarea id="overview" name="overview" placeholder="Provide an overview of the entire SRS document..." required></textarea>
+            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="submitForm('overview')">Submit</button>
+            
+            <button type="button" class="w3-button w3-block w3-theme w3-section w3-padding" onclick="showPage('page2')">Continue to Comprehensive Description</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Page 2: Comprehensive Description -->
+     
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// JavaScript functions for sidebar toggle
+var mySidebar = document.getElementById("mySidebar");
+var overlayBg = document.getElementById("myOverlay");
+
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+
+// Function to switch between pages
+function showPage(pageId) {
+  var pages = document.getElementsByClassName('page-section');
+  for (var i = 0; i < pages.length; i++) {
+    pages[i].style.display = 'none';  // Hide all pages
+  }
+  document.getElementById(pageId).style.display = 'block';  // Show the selected page
+}
+
+// Function to submit forms via AJAX
+function submitForm(formId) {
+    var form = document.getElementById(formId + 'Form');
+    var formData = new FormData(form);
+
+    fetch('/submit_' + formId, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(formId + ' Form Submitted:', data);
+        // Optionally, handle response or move to next step
+    })
+    .catch(error => {
+        console.error('Error submitting ' + formId + ' Form:', error);
+    });
+}
+</script>
+
+
+</body>
+</html>

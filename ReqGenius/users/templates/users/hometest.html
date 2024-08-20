@@ -4,6 +4,11 @@
     <title>Background Video Test</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load static files -->
+    {% load static %}
+
+    <!-- External CSS (no need to modify) -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link
       rel="stylesheet"
@@ -17,7 +22,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
     <style>
+      /* Your custom styles remain the same */
       html,
       body {
         font-family: "Roboto", sans-serif;
@@ -157,24 +167,31 @@
         <a href="#home" class="w3-bar-item w3-button w3-wide">ReqGenious</a>
         <!-- Right-sided navbar links -->
         <div class="w3-right w3-hide-small">
-          <a href="login.html" class="w3-bar-item w3-button">
+          {% if request.session.user_id %} {% if request.session.is_student %}
+          <a href="{% url 'srsnew' %}" class="w3-bar-item w3-button">
+            <i class="fa fa-file-text-o"></i> SRS for Students
+          </a>
+          
+          {% else %}
+          <a href="{% url 'srsnew' %}" class="w3-bar-item w3-button">
+            <i class="fa fa-file-text-o"></i> SRS
+          </a>
+          {% endif %}
+          <a
+            href="{% url 'hometest' %}?action=logout"
+            class="w3-bar-item w3-button"
+          >
+            <i class="fa fa-sign-out"></i> Logout
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}" class="w3-bar-item w3-button">
             <i class="fa fa-user"></i> LOGIN
           </a>
-          >
-
-          <a href="signup.html" class="w3-bar-item w3-button"
-            ><i class="fa fa-user"></i> SIGN IN</a
-          >
+          <a href="{% url 'signup' %}" class="w3-bar-item w3-button">
+            <i class="fa fa-user-plus"></i> SIGN UP
+          </a>
+          {% endif %}
         </div>
-        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-
-        <a
-          href="javascript:void(0)"
-          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
-          onclick="w3_open()"
-        >
-          <i class="fa fa-bars"></i>
-        </a>
       </div>
     </div>
 
@@ -202,7 +219,7 @@
 
     <!-- Video background -->
     <video class="video-background" autoplay muted loop>
-      <source src="background.mp4" type="video/mp4" />
+      <source src="{% static 'background.mp4' %}" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
 
@@ -221,7 +238,7 @@
 
     <script>
       function goToPage() {
-        window.location.href = "WantToKnowMore.html"; // Replace with your target page URL
+        window.location.href = "{% url 'want' %}";
       }
     </script>
 

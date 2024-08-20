@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SRS</title>
+
+    {% load static %}
+    <!-- Load jQuery from a CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Load Materialize CSS and FontAwesome from a CDN -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -13,16 +18,22 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+
     <style>
-      html,
-      body {
-        width: 100%;
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Raleway", sans-serif;
+      }
+
+      body,
+      html {
         height: 100%;
-        background-color: #f7f9fc; /* Lighter background */
-        background-image: url("page.jpg"); /* Replace with your image path */
-        background-repeat: no-repeat;
-        background-position: right top; /* Position the image on the right */
-        background-size: 150px; /* Size of the pencil drawing */
+        line-height: 1.8;
       }
       .pad-bot-10 {
         padding-bottom: 20px !important;
@@ -31,6 +42,9 @@
         margin-left: auto;
         margin-right: auto;
         width: 95%;
+      }
+      .w3-bar .w3-button {
+        padding: 16px;
       }
       .input-field {
         margin-bottom: 20px;
@@ -102,10 +116,72 @@
       #supportFileLabel {
         margin-bottom: 20px; /* Adjust the value as needed */
       }
+      /* Full height image header */
+      .bgimg-1 {
+        background-position: center;
+        background-size: cover;
+        background-image: url("{% static 'images/reqw2.png' %}");
+        min-height: 100%;
+      }
     </style>
   </head>
   <body>
-    {% csrf_token %}
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+      <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="{% url 'hometest' %}" class="w3-bar-item w3-button w3-wide"
+          >ReqGenious</a
+        >
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+          <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+          <a href="#team" class="w3-bar-item w3-button"
+            ><i class="fa fa-user"></i> TEAM</a
+          >
+          <a href="{% url 'feedback' %}" class="w3-bar-item w3-button"
+            ><i class="fa fa-th"></i> FEEDBACK</a
+          >
+          <a href="{% url 'login' %}" class="w3-bar-item w3-button"
+            ><i class="fa fa-user"></i> LOGIN</a
+          >
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+        <a
+          href="javascript:void(0)"
+          class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+          onclick="w3_open()"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav
+      class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
+      style="display: none"
+      id="mySidebar"
+    >
+      <a
+        href="javascript:void(0)"
+        onclick="w3_close()"
+        class="w3-bar-item w3-button w3-large w3-padding-16"
+        >Close ×</a
+      >
+      <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button"
+        >ABOUT</a
+      >
+      <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button"
+        >TEAM</a
+      >
+      <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button"
+        >WORK</a
+      >
+      <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button"
+        >CONTACT</a
+      >
+    </nav>
+
     <main>
       <div class="container">
         <div class="row">
@@ -299,41 +375,52 @@
       </div>
 
       <!-- Support Request Modal -->
-<div id="supportModal" class="modal">
-    <div class="modal-content">
-      <h4>Support Request</h4>
-      <div class="input-field">
-        <input type="text" id="supportName" required />
-        <label for="supportName">Your Name <span style="color: red;">*</span></label>
+      <div id="supportModal" class="modal">
+        <div class="modal-content">
+          <h4>Support Request</h4>
+          <div class="input-field">
+            <input type="text" id="supportName" required />
+            <label for="supportName"
+              >Your Name <span style="color: red">*</span></label
+            >
+          </div>
+          <div class="input-field">
+            <input type="email" id="supportEmail" required />
+            <label for="supportEmail"
+              >Your Email <span style="color: red">*</span></label
+            >
+          </div>
+          <div class="input-field">
+            <textarea
+              id="supportMessage"
+              class="materialize-textarea"
+              required
+            ></textarea>
+            <label for="supportMessage"
+              >Your Message <span style="color: red">*</span></label
+            >
+          </div>
+          <div class="input-field">
+            <label id="supportFileLabel"
+              >Attach a File <span style="color: red">*</span></label
+            >
+            <input type="file" id="supportFile" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a
+            href="javascript:void(0)"
+            class="btn btn-custom waves-effect waves-light"
+            onclick="submitSupportRequest()"
+            >Submit</a
+          >
+          <a
+            href="javascript:void(0)"
+            class="modal-close btn waves-effect waves-light"
+            >Close</a
+          >
+        </div>
       </div>
-      <div class="input-field">
-        <input type="email" id="supportEmail" required />
-        <label for="supportEmail">Your Email <span style="color: red;">*</span></label>
-      </div>
-      <div class="input-field">
-        <textarea id="supportMessage" class="materialize-textarea" required></textarea>
-        <label for="supportMessage">Your Message <span style="color: red;">*</span></label>
-      </div>
-      <div class="input-field">
-        <label id="supportFileLabel">Attach a File <span style="color: red;">*</span></label>
-        <input type="file" id="supportFile" required />
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a
-        href="javascript:void(0)"
-        class="btn btn-custom waves-effect waves-light"
-        onclick="submitSupportRequest()"
-        >Submit</a
-      >
-      <a
-        href="javascript:void(0)"
-        class="modal-close btn waves-effect waves-light"
-        >Close</a
-      >
-    </div>
-  </div>
-  
 
       <!-- Request Received Popup -->
       <div id="requestReceivedPopup" class="request-received-popup">
@@ -344,95 +431,77 @@
       </div>
     </main>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script>
-        $(document).ready(function(){
-            $('.modal').modal();
-            $('.tooltipped').tooltip(); // Initialize tooltips
-            showPage(1); // Show the first page on load
+    <!-- Load jQuery and Materialize JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".modal").modal();
+        $(".tooltipped").tooltip(); // Initialize tooltips
+        showPage(1); // Show the first page on load
 
-            // Populate saved data when page loads
-            var srsData = JSON.parse('{{ srs_data_json|safe }}');
-            for (var i = 1; i <= 5; i++) {
-                var content = srsData['field' + i] || '';
-                $('#page' + i + ' textarea').val(content);
-                // Ensure labels don't overlap filled content
-                if (content) {
-                    $('#page${i} label').addClass('active');
-                }
-            }
-        });
+        // Populate saved data when page loads
+        var srsData = JSON.parse("{{ srs_data_json|safe }}");
+        for (var i = 1; i <= 5; i++) {
+          var content = srsData["field" + i] || "";
+          $("#page" + i + " textarea").val(content);
+          // Ensure labels don't overlap filled content
+          if (content) {
+            $("#page" + i + " label").addClass("active");
+          }
+        }
+      });
 
       function showPage(pageNumber) {
-          $('.page').hide(); // Hide all pages
-          $('#page' + pageNumber).show(); // Show the selected page
-      }
-
-      function saveQuote(fieldNumber) {
-          var content = $('#page${fieldNumber} textarea').val();
-
-          $.ajax({
-              url: '{% url "save_srs_data" %}',
-              type: 'POST',
-              data: {
-                  'field_number': fieldNumber,
-                  'content': content,
-                  'csrfmiddlewaretoken': '{{ csrf_token }}'
-              },
-              success: function(response) {
-                  if (response.status === 'success') {
-                      M.toast({html: 'Data saved successfully!', classes: 'rounded'});
-                  } else {
-                      M.toast({html: 'Error saving data. Please try again.', classes: 'rounded red'});
-                  }
-              },
-              error: function() {
-                  M.toast({html: 'Error saving data. Please try again.', classes: 'rounded red'});
-              }
-          });
+        $(".page").hide(); // Hide all pages
+        $("#page" + pageNumber).show(); // Show the selected page
       }
 
       function openSupportModal() {
-          $('#supportModal').modal('open');
+        $("#supportModal").modal("open");
       }
 
       function closeSupportModal() {
-          $('#supportModal').modal('close');
+        $("#supportModal").modal("close");
       }
 
       function submitSupportRequest() {
-          var name = $('#supportName').val();
-          var email = $('#supportEmail').val();
-          var message = $('#supportMessage').val();
-          var file = $('#supportFile').val();
+        var name = $("#supportName").val();
+        var email = $("#supportEmail").val();
+        var message = $("#supportMessage").val();
+        var file = $("#supportFile").val();
 
-          console.log('Support Request Submitted:', { name, email, message, file });
+        console.log("Support Request Submitted:", {
+          name,
+          email,
+          message,
+          file,
+        });
 
-          // Clear the input fields
-          $('#supportName').val('');
-          $('#supportEmail').val('');
-          $('#supportMessage').val('');
-          $('#supportFile').val('');
+        // Clear the input fields
+        $("#supportName").val("");
+        $("#supportEmail").val("");
+        $("#supportMessage").val("");
+        $("#supportFile").val("");
 
-          // Close the support modal
-          closeSupportModal();
+        // Close the support modal
+        closeSupportModal();
 
-          // Show request received popup
-          $('#requestReceivedPopup').css({
-              visibility: 'visible',
-              opacity: '1'
-          });
+        // Show request received popup
+        $("#requestReceivedPopup").css({
+          visibility: "visible",
+          opacity: "1",
+        });
 
-          // Set a timeout to automatically hide the popup after 3 seconds
-          setTimeout(closeRequestReceived, 3000);
+        // Set a timeout to automatically hide the popup after 3 seconds
+        setTimeout(closeRequestReceived, 3000);
       }
 
       function closeRequestReceived() {
-          $('#requestReceivedPopup').css({
-              visibility: 'hidden',
-              opacity: '0'
-          });
+        $("#requestReceivedPopup").css({
+          visibility: "hidden",
+          opacity: "0",
+        });
       }
     </script>
   </body>

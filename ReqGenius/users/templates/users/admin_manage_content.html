@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Educational Content</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'w3.css' %}">
+    <style>
+        /* סגנון כללי לגוף העמוד */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* עיצוב לכותרות */
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        /* עיצוב לטופס */
+        form {
+            margin-bottom: 40px;
+        }
+
+        /* כפתור הוספה */
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* סגנון לרשימת התכנים */
+        .w3-ul {
+            margin-top: 20px;
+            padding-left: 0;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .w3-ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .w3-ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* סגנון לכפתור הסרה */
+        .w3-button.w3-red {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .w3-button.w3-red:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- תפריט הניווט העליון -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card">
+            <a href="{% url 'admin_manage_content' %}" class="w3-bar-item w3-button">ReqGenious</a>
+            <div class="w3-right w3-hide-small">
+                <a href="{% url 'admin_manage_content' %}" class="w3-bar-item w3-button">Manage Content</a>
+                <a href="{% url 'hometest' %}?action=logout" class="w3-bar-item w3-button">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ניהול תכנים לימודיים -->
+    <div class="w3-container" style="margin-top: 100px;">
+        <h2>ניהול תכנים לימודיים</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="w3-button">הוסף תוכן לימודי</button>
+        </form>
+
+        <h3>תוכן קיים</h3>
+        <ul class="w3-ul w3-card">
+            {% for item in content %}
+            <li class="w3-bar">
+                <span>{{ item.title }} - <a href="{{ item.url }}" target="_blank">{{ item.url }}</a></span>
+                <a href="{% url 'remove_content' item.id %}" class="w3-button w3-red w3-right">הסר</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- ניהול מפגשי זום -->
+    <div class="w3-container" style="margin-top: 50px;">
+        <h2>ניהול מפגשי ידע (ZOOM)</h2>
+        <form method="post" action="{% url 'add_zoom_meeting' %}">
+            {% csrf_token %}
+            <label for="zoom_link">הכנס קישור למפגש ZOOM:</label>
+            <input type="text" id="zoom_link" name="zoom_link" class="w3-input" placeholder="https://zoom.us/your-meeting-link" required>
+            <button type="submit" class="w3-button">הוסף קישור מפגש</button>
+        </form>
+
+        <h3>מפגשים קיימים</h3>
+        <ul class="w3-ul w3-card">
+            {% for meeting in zoom_meetings %}
+            <li class="w3-bar">
+                <span>מפגש ב-<a href="{{ meeting.url }}" target="_blank">ZOOM</a></span>
+                <a href="{% url 'remove_zoom_meeting' meeting.id %}" class="w3-button w3-red w3-right">הסר</a>
+            </li>
+            {% endfor %}
+            
+        </ul>
+    </div>
+
+</body>
+</html>
